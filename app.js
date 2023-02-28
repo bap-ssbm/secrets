@@ -97,7 +97,7 @@ passport.serializeUser(function(user, cb) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://clever-rugby-shirt-pike.cyclic.app/auth/google/secrets",
+    callbackURL: "http://localhost:3000/auth/google/secrets",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo" //! From GitHub Issues because of G+ Deprecation 
 },
     function (accessToken, refreshToken, profile, cb) {
@@ -110,7 +110,7 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FB_ID,
     clientSecret: process.env.FB_SECRET,
-    callbackURL: "https://clever-rugby-shirt-pike.cyclic.app/facebook/callback"
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ facebookId: profile.id }, function (err, user) {
@@ -158,10 +158,13 @@ app.get("/secrets", function (req, res) {
         }else{
             if(foundUsers){
                 foundUsers.forEach(user => {
-                    var usersecrets =  user.secrets;
-                    usersecrets.forEach(secret=>{
-                        secretPosts.push(secret);
-                    });
+                    if(user.secrets){
+                        var usersecrets =  user.secrets;
+                        usersecrets.forEach(secret=>{
+                            secretPosts.push(secret);
+                        });
+                    }
+                    
                 });
                 secretPosts.sort(function(a,b){return new Date(b.dateAndTime) - new Date(a.dateAndTime)});
                 
