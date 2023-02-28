@@ -271,7 +271,7 @@ app.get("/:usersecrets", function(req,res) {
 
 app.post("/account", function(req,res){
     if(req.isAuthenticated){
-        res.redirect("/" + req.user.id);
+        res.redirect("/" + req.user._id);
     }else{
         res.redirect("/");
     }
@@ -279,7 +279,7 @@ app.post("/account", function(req,res){
 });
 
 app.post("/delete", function(req,res){
-    User.updateOne({_id: req.user.id},{$pull: {secrets: {_id: req.body.secretpost}}},(err,foundPosts) =>{
+    User.updateOne({_id: req.user._id},{$pull: {secrets: {_id: req.body.secretpost}}},(err,foundPosts) =>{
         if(!err){
             res.redirect("/" + req.user.id);
         }
