@@ -1,0 +1,53 @@
+<%- include('partials/header') %>
+ <nav>
+  <div class="logo nav-section">
+    <a href="/secrets"><i class="fa-solid fa-user-secret"></i></a>
+   
+  </div>
+  <div class="socials nav-section">
+    
+    
+  </div>
+  <div class="options nav-section">
+    <%if(loggedin){%>
+      <a class="secrets-btn btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
+      <a class="secrets-btn btn btn-dark btn-lg" href="/submit" role="button">Submit a Secret</a>
+    <%}else{%>
+      <a class="secrets-btn btn btn-light btn-lg" href="/register" role="button">Register</a>
+      <a class="secrets-btn btn btn-dark btn-lg" href="/login" role="button">Login</a>
+    <%}%>
+  </div>
+  
+  
+ </nav>
+
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <i class="fas fa-key fa-6x"></i>
+    <h1 class="display-3">Your Secrets!</h1>
+    
+    <%usersSecrets.forEach(function(secret){%>
+      
+      
+      
+        <hr>
+        <form method="post" action="/delete">
+          <div class="posts">
+            <i><%=secret.dateAndTime%></i>
+            <p class="secret-text" ><%=secret.post%></p>
+            <button type="submit" class="btn btn-danger" name="secretpost" value="<%=secret._id%>"> Delete</button>
+          </div>
+        </form>
+        
+        
+     
+      
+    <%});%>
+
+    <hr>
+   
+  </div>
+</div>
+
+<%- include('partials/footer') %>
