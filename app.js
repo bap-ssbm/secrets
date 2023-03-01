@@ -166,7 +166,7 @@ app.get("/secrets", function (req, res) {
                     }
                     
                 });
-                secretPosts.sort(function(a,b){return new Date(b.dateAndTime) - new Date(a.dateAndTime)});
+                secretPosts.sort(function(a,b){return new Date(b.dateAndTime+ 'Z') - new Date(a.dateAndTime+ 'Z')});
                 
                 res.render("secrets", {usersSecrets: secretPosts.slice(0,9), loggedin: req.isAuthenticated()});
             }
