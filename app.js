@@ -166,11 +166,15 @@ app.get("/secrets", function (req, res) {
                     }
                     
                 });
-                  secretPosts.sort(function(a, b) {
-                    return new Date(b.dateAndTime) - new Date(a.dateAndTime);
+                console.log( secretPosts );
+                secretPosts.sort(function(a, b) {
+                    
+                    return new Date(b.dateAndTime)- new Date(a.dateAndTime);
+                    
                   });
-                
+                  console.log( secretPosts );
                 res.render("secrets", {usersSecrets: secretPosts.slice(0,9), loggedin: req.isAuthenticated()});
+                
             }
         }
     });
@@ -262,7 +266,7 @@ app.get("/:usersecrets", function(req,res) {
     User.findOne({'_id': requestedUrl},(err, foundUser)=>{
       if (!err) {
         const userposts = foundUser.secrets;
-        userposts.sort(function(a,b){return new Date(a.dateAndTime) - new Date(b.dateAndTime)});
+        userposts.sort(function(a,b){return new Date(b.dateAndTime) - new Date(a.dateAndTime)});
         res.render("account", {usersSecrets: userposts, loggedin: req.isAuthenticated()});
       } 
       else{
