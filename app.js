@@ -167,11 +167,11 @@ app.get("/secrets", function (req, res) {
                     
                 });
                 console.log( secretPosts );
-                secretPosts.sort(function(a, b) {
-                    
-                    return new Date(b.dateAndTime)- new Date(a.dateAndTime);
-                    
-                  });
+               secretPosts.sort(function(a, b) {
+                    const dateA = new Date(a.dateAndTime);
+                    const dateB = new Date(b.dateAndTime);
+                    return dateB - dateA;
+                });
                   console.log( secretPosts );
                 res.render("secrets", {usersSecrets: secretPosts.slice(0,9), loggedin: req.isAuthenticated()});
                 
