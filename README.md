@@ -6,4 +6,4 @@ uses mongodb mongoose to store data.
 
 website link->
 
-https://clever-rugby-shirt-pike.cyclic.app/
+https://secrets-y27g.onrender.com/
